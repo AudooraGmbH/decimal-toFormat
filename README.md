@@ -1,20 +1,13 @@
 # toFormat
 
-Adds a `toFormat` instance method to [big.js](https://github.com/MikeMcl/big.js/) or [decimal.js](https://github.com/MikeMcl/decimal.js/).
+Adds a `toFormat` function to format [decimal.js](https://github.com/MikeMcl/decimal.js/) values.
 
 ## Install
 
 Node.js
 
 ```bash
-$ npm install toformat
-```
-
-Browser
-
-```html
-<script src='path/to/big.js'></script>
-<script src='path/to/toFormat.js'></script>
+$ npm install decimal-toformat
 ```
 
 ## Use
@@ -22,49 +15,39 @@ Browser
 ### Node.js
 
 ```js
-Big = require('big')
-Big = require('toformat')(Big)
+const Decimal = require("decimal.js");
+const { toFormat } = require("decimal-toformat");
 
-x = new Big(9876.54321)
-x.toFormat(2)                       // '9,876.54'
+x = new Decimal(9876.54321);
+toFormat(x, 2) ;                      // '9,876.54'
 
-// Three different ways of setting a formatting property
-Big.format.decimalSeparator = ','
-x.format.groupSeparator = ' '
-x.toFormat(1, { groupSize: 2 })    // '98 76,5'
-```
-
-### Browser
-
-```js
-toFormat(Big)
-x = new Big(9876.54321)
-x.toFormat(2)                      // '9,876.54'
+// Set some format properties
+toFormat(x, 1, {
+  decimalSeparator: ',',
+  groupSeparator: ' ',
+  groupSize: 2,
+});                                  // '98 76,5'
 ```
 
 ### Further examples:
 
 ```js
-// The format object added to the Decimal constructor by this library.
-Decimal.format = {
+let format = {
   decimalSeparator: '.',
   groupSeparator: ',',
   groupSize: 3,
   secondaryGroupSize: 0,
   fractionGroupSeparator: '',
   fractionGroupSize : 0
-}
+};
 
-x.toFormat()                        // 123,456,789.987654321
-x.toFormat(2, 1)                    // 123,456,789.98
+toFormat(x, format);                 // 123,456,789.987654321
+toFormat(x, 2, 1, format);           // 123,456,789.98
 
-// Add a format object to a Decimal instance.
-x.format = {
+toFormat(x, {
   decimalSeparator: ',',
   groupSeparator: '',
-}
-
-x.toFormat()                       // 123456789,987654321
+});                                  // 123456789,987654321
 
 format = {
   decimalSeparator: '.',
@@ -72,12 +55,11 @@ format = {
   groupSize: 3,
   fractionGroupSeparator: ' ',
   fractionGroupSize : 5
-}
+};
 
-// Pass a format object to the method call.
-x.toFormat(format)                 // 123 456 789.98765 4321
-x.toFormat(4, format)              // 123 456 789.9877
-x.toFormat(2, 1, format)           // 123 456 789.98
+toFormat(x, format);                 // 123 456 789.98765 4321
+toFormat(x, 4, format);              // 123 456 789.9877
+toFormat(x, 2, 1, format);           // 123 456 789.98
 ```
 
 ## Test

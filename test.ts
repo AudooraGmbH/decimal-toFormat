@@ -1,32 +1,40 @@
-const Decimal = require('decimal.js');
-const { toFormat } = require('./toFormat');
+import process from 'node:process';
+import Decimal from 'decimal.js';
+import { FormatOptions, toFormat } from './toFormat';
 
 let time = process.hrtime();
 let passed = 0;
 let total = 0;
 
-function T(expected, value, dp, format) {
-  const actual = toFormat(new Decimal(value), dp, format);
+function T(expected: string, value: number | string, dp?: number | FormatOptions, format?: FormatOptions) {
+	let actual: string;
 
-  ++total;
-  if (expected === actual) {
-    ++passed
-  } else {
-    console.error('\n Test number: ' + total + ' failed (Decimal)');
-    console.error(' Expected: ' + expected);
-    console.error(' Actual:   ' + actual);
-  }
+	if (format === undefined) {
+		actual = toFormat(new Decimal(value), dp as number);
+	} else {
+		actual = toFormat(new Decimal(value), dp as number, format);
+	}
+
+	++total;
+
+	if (expected === actual) {
+		++passed
+	} else {
+		console.error('\n Test number: ' + total + ' failed (Decimal)');
+		console.error(' Expected: ' + expected);
+		console.error(' Actual:   ' + actual);
+	}
 }
 
 console.log('\n Testing toFormat...');
 
-let format = {
-  decimalSeparator: '.',
-  groupSeparator: ',',
-  groupSize: 3,
-  secondaryGroupSize: 0,
-  fractionGroupSeparator: ' ',
-  fractionGroupSize: 0
+let format: FormatOptions = {
+	decimalSeparator: '.',
+	groupSeparator: ',',
+	groupSize: 3,
+	secondaryGroupSize: 0,
+	fractionGroupSeparator: ' ',
+	fractionGroupSize: 0,
 };
 
 T('0', 0, format);
@@ -140,10 +148,10 @@ T('1.0000000000', 1, 10, format);
 T('1.000000000', 1, 9, format);
 
 format = {
-  decimalSeparator: '.',
-  groupSeparator: ',',
-  groupSize: 3,
-  secondaryGroupSize: 2
+	decimalSeparator: '.',
+	groupSeparator: ',',
+	groupSize: 3,
+	secondaryGroupSize: 2,
 };
 
 T('9,876.54321', 9876.54321, format);
@@ -183,11 +191,11 @@ T('4658 0734 6509 8347 6580 3645 0,6', '4658073465098347658036450.59764985763489
 
 format.fractionGroupSize = 2;
 format.fractionGroupSeparator = ':';
-format.secondaryGroupSize = null;
+format.secondaryGroupSize = undefined;
 
 T('4 6 5 8 0 7 3 4 6 5 0 9 8 3 4 7 6 5 8 0 3 6 4 5 0,59:76:49:85:76:34:89:56:98:75:65:98:76:45:9', '4658073465098347658036450.59764985763489569875659876459' , format);
 
 time = process.hrtime(time);
-time = time[0] * 1e3 + (time[1] / 1e6 | 0);
+const resultTime = time[0] * 1e3 + (time[1] / 1e6 | 0);
 
-console.log('\n ' + passed + ' of ' + total + ' tests passed in ' + time + ' ms \n');
+console.log('\n ' + passed + ' of ' + total + ' tests passed in ' + resultTime + ' ms \n');

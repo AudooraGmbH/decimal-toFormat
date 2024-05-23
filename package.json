@@ -1,36 +1,35 @@
 {
-  "name": "toformat",
-  "version": "2.0.0",
-  "description": "Adds a `toFormat` instance method to decimal.js or big.js",
+  "name": "decimal-toformat",
+  "version": "3.0.0",
+  "description": "A `toFormat` function for decimal.js",
   "main": "toFormat.js",
   "devDependencies": {
-    "big.js": "*",
-    "decimal.js": ">=5.0.0"
+    "@types/node": "^20.12.12",
+    "decimal.js": "*"
   },
   "scripts": {
-    "test": "node test",
-    "build": "uglifyjs toFormat.js -c -m -o toFormat.min.js --preamble \"/* toFormat.js v2.0.0 https://github.com/MikeMcl/toFormat */\""
+    "test": "node test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MikeMcl/toFormat.git"
+    "url": "git+https://github.com/jangxx/decimal-toFormat.git"
   },
   "keywords": [
     "format",
     "bignumber",
     "big",
     "number",
-    "big.js",
     "decimal.js"
   ],
-  "author": "Michael Mclaughlin",
+  "author": "Michael Mclaughlin, jangxx <jangxx@pm.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MikeMcl/toFormat/issues"
+    "url": "https://github.com/jangxx/decimal-toFormat/issues"
   },
-  "homepage": "https://github.com/MikeMcl/toFormat#readme",
+  "homepage": "https://github.com/jangxx/decimal-toFormat",
   "files": [
     "toFormat.js",
-    "toFormat.min.js"
-  ]
+    "toFormat.d.ts"
+  ],
+  "types": "toFormat.d.ts"
 }
