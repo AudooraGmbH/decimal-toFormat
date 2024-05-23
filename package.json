@@ -1,6 +1,6 @@
 {
   "name": "decimal-toformat",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A `toFormat` function for decimal.js",
   "main": "toFormat.js",
   "devDependencies": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jangxx/decimal-toFormat.git"
+    "url": "git+https://github.com/AudooraGmbH/decimal-toFormat.git"
   },
   "keywords": [
     "format",
@@ -21,9 +21,9 @@
   "author": "Michael Mclaughlin, jangxx <jangxx@pm.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jangxx/decimal-toFormat/issues"
+    "url": "https://github.com/AudooraGmbH/decimal-toFormat/issues"
   },
-  "homepage": "https://github.com/jangxx/decimal-toFormat",
+  "homepage": "https://github.com/AudooraGmbH/decimal-toFormat",
   "files": [
     "toFormat.js",
     "toFormat.d.ts"
